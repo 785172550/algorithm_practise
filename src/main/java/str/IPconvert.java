@@ -9,13 +9,13 @@ import java.util.Arrays;
 public class IPconvert {
 
     // test case
-    private static String[] samples = new String[]{
-            "172.168.5.1",
-            "255.4.6.125",
-            "  66  . 223.336.6 ",
-            "88.77.2   .4",
-            "0.0.0.0",
-            "22.44.1.3 4"
+    private static char[][] samples = new char[][]{
+            "172.168.5.1".toCharArray(),
+            "255.4.6.125".toCharArray(),
+            "  66  . 223.336.6 ".toCharArray(),
+            "88.77.2   .4".toCharArray(),
+            "0.0.0.0".toCharArray(),
+            "22.44.1.3 4".toCharArray()
     };
 
     public static void main(String[] args) throws Exception {
@@ -39,7 +39,7 @@ public class IPconvert {
             try {
                 signedInteger = convertString(item); // get converted value
             } catch (Exception e) {
-                System.out.println("error: " + e.getMessage() + " '" + item + "' ");
+                System.out.println("error: " + e.getMessage() + " '" + new String(item) + "' ");
                 return;
             }
 
@@ -71,7 +71,7 @@ public class IPconvert {
      * 2147483647 MAX_INT
      *
      */
-    public static int convertString(String str) throws Exception {
+    public static int convertString(char[] str) throws Exception {
 
         int dotIndex = 0; // dot count
 
@@ -80,7 +80,7 @@ public class IPconvert {
 
         int segLeft = 0; // last dot index
 
-        char[] chrs = str.toCharArray();
+        char[] chrs = str;
 
         for (int i = 0; i < chrs.length; i++) { // only one iteration
             if (chrs[i] == ' ') {
