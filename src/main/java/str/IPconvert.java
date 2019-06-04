@@ -12,15 +12,16 @@ public class IPconvert {
     private static String[] samples = new String[]{
             "172.168.5.1",
             "255.4.6.125",
-            "  66  .223.336.6 ",
+            "  66  . 223.336.6 ",
             "88.77.2   .4",
-            "0.0.0.0"
+            "0.0.0.0",
+            "22.44.1.3 4"
     };
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         /*
-         because java dont have unsigned int type, but in the example(172.168.5.1 -> 2896692481),
+         Java dont have unsigned int type, but in the example(172.168.5.1 -> 2896692481),
          the number 2896692481 is over MAX_VALUE of signed integer, will be cast to -1398274815.
          considered this case, if output need a unsigned int, I cast int to long just for print.
          Essentially speaking, their binary value are the same(2896692481 vs -1398274815), just different decode style
@@ -33,7 +34,13 @@ public class IPconvert {
         Arrays.stream(samples).forEach(item -> {
             System.out.println(" ");
             System.out.println("################################################ ");
-            int signedInteger = convertString(item); // get converted value
+            int signedInteger = 0;
+            try {
+                signedInteger = convertString(item); // get converted value
+            } catch (Exception e) {
+                System.out.println("error: " + e.getMessage() + " '" + item + "' ");
+                return;
+            }
 
             System.out.println("binary string : " + Integer.toBinaryString(signedInteger));
             System.out.println("signed int value:   " + signedInteger);
@@ -44,15 +51,6 @@ public class IPconvert {
             System.out.println("binary string : " + Long.toBinaryString(unsignedInt));
             System.out.println("unsigned int value: " + unsignedInt);
         });
-
-
-/*        int signedInteger = convertString("172.168.5.3");
-        System.out.println("binary string : " + Integer.toBinaryString(signedInteger));
-        System.out.println("int value: " + signedInteger);
-
-        long unsignedInt = signedInteger & 0x0FFFFFFFFL; // change signedInt to unsigned int
-        System.out.println("binary string : " + Long.toBinaryString(unsignedInt));
-        System.out.println("unsigned: " + unsignedInt);*/
     }
 
 
@@ -63,17 +61,16 @@ public class IPconvert {
      * 2896692480
      * 2896692481
      *
-     * 1011000010011010000001000000100   1481441796
-     * 10101100101010000000010100000001 -1398274815
+     *  1011000010011010000001000000100   1481441796  正
+     * 10101100101010000000010100000001  -1398274815  负
      *
-     * 1111111111111111111111111111111
        10101100101010000000010100000001
      * 10101100 10101000 00000101 00000001
      *
      * 2147483647 MAX_INT
      *
      */
-    public static int convertString(String str) {
+    public static int convertString(String str) throws Exception {
 
         int dotIndex = 0; // dot count
 
@@ -84,13 +81,13 @@ public class IPconvert {
 
         char[] chrs = str.toCharArray();
 
-        for (int i = 0; i < chrs.length; i++) {
+        for (int i = 0; i < chrs.length; i++) { // only one iteration
             if (chrs[i] == ' ') {
-                if (!checkFormat(chrs, i)) throw new RuntimeException("invalid");  // check blank if in two numbers
+                if (!checkFormat(chrs, i)) throw new Exception("invalid input");  // check blank if in two numbers
             }
 
             if (chrs[i] == '.') {
-                if (dotIndex > 2) throw new RuntimeException("invalid");
+                if (dotIndex > 2) throw new Exception("invalid input");
 
                 // 根据 '.' 分为四个段区间[k...i-1]， 每个闭区间内的值，合并为一个int值，然后cast为byte
                 segments[sIndex] = (byte) mergeToInt(chrs, segLeft, i - 1);
