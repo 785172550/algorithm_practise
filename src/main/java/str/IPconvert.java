@@ -27,10 +27,11 @@ public class IPconvert {
          Essentially speaking, their binary value are the same(2896692481 vs -1398274815), just different decode style
 
          java不支持 unsigned int 类型， 大于 2147483647 MAX_INT 的数会被视为负数，但是本质上来讲两者的二进制码没有区别，
-         只是，一个是用的原码，一个是补码来解析。 为了方便展示和示例中的效果，我用long 型转载该值，使得其转换为 源码解析。
+         只是，一个是用的原码，一个是补码来解析。 为了方便展示和示例中的效果，我用long 型装载该值，使得其转换为源码解析。
 
         */
 
+        // test case
         Arrays.stream(samples).forEach(item -> {
             System.out.println(" ");
             System.out.println("################################################ ");
@@ -122,7 +123,7 @@ public class IPconvert {
                 break;
             }
         }
-
+        // numStr 等价于数组 char[newLeft...newRight]  e.g.['1','7','2']
         String numStr = new String(arr, newLeft, newRight - newLeft + 1);
         return Integer.parseInt(numStr);
     }
