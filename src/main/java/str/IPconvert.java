@@ -1,132 +1,143 @@
-package com.wh.test;
+package str;
 
-import java.math.BigInteger;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.Arrays;
 
 /**
- * @ClassName: Main
- *
+ * @ClassName: IPconvert
  * @author: hw83770
  */
-public class Main {
+public class IPconvert {
 
-  int[] space = new int[100];
-  int sindex = 0;
+    // test case
+    private static String[] samples = new String[]{
+            "172.168.5.1",
+            "255.4.6.125",
+            "  66  .223.336.6 ",
+            "88.77.2   .4",
+            "0.0.0.0"
+    };
 
-  public static void main(String[] args) {
-    System.out.println("----------");
-    //    long ll = 2896692481L;
-    //    int t = (int) (ll & 0xFFFFFFFFL);
-    //    Integer a = new Integer(t);
-    //    System.out.println(Integer.toBinaryString(a));
-    //    System.out.println(Integer.valueOf("11111111111111111111111111111110", 2).toString());
+    public static void main(String[] args) {
 
-    //    byte[] all = new byte[4];
+        /*
+         because java dont have unsigned int type, but in the example(172.168.5.1 -> 2896692481),
+         the number 2896692481 is over MAX_VALUE of signed integer, will be cast to -1398274815.
+         considered this case, if output need a unsigned int, I cast int to long just for print.
+         Essentially speaking, their binary value are the same(2896692481 vs -1398274815), just different decode style
 
-    //    String ss = "335  ";
-    //    System.out.println(mergeToInt(ss.toCharArray(), 0, ss.length() - 1));
+         java不支持 unsigned int 类型， 大于 2147483647 MAX_INT 的数会被视为负数，但是本质上来讲两者的二进制码没有区别，
+         只是，一个是用的原码，一个是补码来解析。 为了方便展示和示例中的效果，我用long 型转载该值，使得其转换为 源码解析。
 
-    int a = convertString("172.168.5.3");
-    System.out.println("int value: " + a);
-    long ll = a & 0xFFFFFFFFl;
-    System.out.println("unsigned: "+ ll);
-  }
+        */
 
- 
-  /**
-   * 
-   * 172.168.5.1 -> 2896692481
-   * 
-   * 4294967294
-   *
-   * 2896692480 2896692481 2896692481
-   *
-   * 2147483647 
-   * 
-   * 10101100
-   *
-   * 10101100101010000000010100000001 
-   * 10101100101010000000010100000001
-   *
-   * 10101100 10101000 00000101 00000001
-   *
-   * 1010110010101000000001010
-   *
-   * @param str
-   */
-  public static int convertString(String str) {
+        Arrays.stream(samples).forEach(item -> {
+            System.out.println(" ");
+            System.out.println("################################################ ");
+            int signedInteger = convertString(item); // get converted value
 
-    int dotIndex = 0; // dot numbers
+            System.out.println("binary string : " + Integer.toBinaryString(signedInteger));
+            System.out.println("signed int value:   " + signedInteger);
 
-    byte[] res = new byte[4];
-    int bIndex = 0;
+            System.out.println("--- transformed --- ");
 
-    int k = 0; // last dot index.
+            long unsignedInt = signedInteger & 0x0FFFFFFFFL; // change signedInt to unsigned int
+            System.out.println("binary string : " + Long.toBinaryString(unsignedInt));
+            System.out.println("unsigned int value: " + unsignedInt);
+        });
 
-    char[] chrs = str.toCharArray();
 
-    for (int i = 0; i < chrs.length; i++) {
-      if (chrs[i] == ' ') {
-        if (!check(chrs, i)) throw new RuntimeException("invalid");
-      }
+/*        int signedInteger = convertString("172.168.5.3");
+        System.out.println("binary string : " + Integer.toBinaryString(signedInteger));
+        System.out.println("int value: " + signedInteger);
 
-      if (chrs[i] == '.') {
-        if (dotIndex > 2) throw new RuntimeException("out of bound");
-
-        res[bIndex] = (byte) mergeToInt(chrs, k, i - 1);
-        k = i + 1;
-        bIndex++;
-        dotIndex++;
-      }
+        long unsignedInt = signedInteger & 0x0FFFFFFFFL; // change signedInt to unsigned int
+        System.out.println("binary string : " + Long.toBinaryString(unsignedInt));
+        System.out.println("unsigned: " + unsignedInt);*/
     }
 
-    res[bIndex] = (byte) mergeToInt(chrs, k, chrs.length - 1);
 
-    int haha = byteArrayToInt(res);
+    /*
+     * 172.168.5.1 -> 2896692481
+     * 4294967294
+     *
+     * 2896692480
+     * 2896692481
+     *
+     * 1011000010011010000001000000100   1481441796
+     * 10101100101010000000010100000001 -1398274815
+     *
+     * 1111111111111111111111111111111
+       10101100101010000000010100000001
+     * 10101100 10101000 00000101 00000001
+     *
+     * 2147483647 MAX_INT
+     *
+     */
+    public static int convertString(String str) {
 
-    return haha;
-  }
+        int dotIndex = 0; // dot count
 
-  public static int byteArrayToInt(byte[] b) {
-    return b[3] & 0xFF | (b[2] & 0xFF) << 8 | (b[1] & 0xFF) << 16 | (b[0] & 0xFF) << 24;
-  }
+        byte[] segments = new byte[4]; // 8 bit for a segment
+        int sIndex = 0; // segment index
 
-  public static int mergeToInt(char[] arr, int left, int right) {
-    boolean flag = true;
-    int newLeft = left;
-    int newRight = right;
-    for (int i = left; i < right; i++) {
-      if (arr[i] != ' ' && flag) {
-        newLeft = i;
-        flag = false;
-      }
+        int segLeft = 0; // last dot index
 
-      if (arr[i + 1] == ' ' && !flag) {
-        newRight = i;
-        break;
-      }
+        char[] chrs = str.toCharArray();
+
+        for (int i = 0; i < chrs.length; i++) {
+            if (chrs[i] == ' ') {
+                if (!checkFormat(chrs, i)) throw new RuntimeException("invalid");  // check blank if in two numbers
+            }
+
+            if (chrs[i] == '.') {
+                if (dotIndex > 2) throw new RuntimeException("invalid");
+
+                // 根据 '.' 分为四个段区间[k...i-1]， 每个闭区间内的值，合并为一个int值，然后cast为byte
+                segments[sIndex] = (byte) mergeToInt(chrs, segLeft, i - 1);
+                segLeft = i + 1;
+                sIndex++;
+                dotIndex++;
+            }
+        }
+
+        // 最后一个区间
+        segments[sIndex] = (byte) mergeToInt(chrs, segLeft, chrs.length - 1);
+        return byteArrayToInt(segments);
     }
 
-    String snum = new String(arr, newLeft, newRight - newLeft + 1);
-    Integer resInteger = Integer.parseInt(snum);
-
-    System.out.println("binary: " + Integer.toBinaryString(resInteger));
-    return resInteger;
-  }
-
-  public static boolean check(char[] arr, int index) {
-    if (index == 0 || index == arr.length - 1) {
-      return true;
+    private static int byteArrayToInt(byte[] b) {
+        return b[3] & 0xFF | (b[2] & 0xFF) << 8 | (b[1] & 0xFF) << 16 | (b[0] & 0xFF) << 24;
     }
 
-    if (isNum(arr[index + 1]) && isNum(arr[index - 1])) {
-      return false;
-    }
-    return true;
-  }
+    private static int mergeToInt(char[] arr, int left, int right) {
+        boolean flag = true;
+        int newLeft = left;
+        int newRight = right;
 
-  public static boolean isNum(char c) {
-    if (c >= '0' && c <= '9') return true;
-    return false;
-  }
+        for (int i = left; i < right; i++) {
+            if (arr[i] != ' ' && flag) { // filter head blanks
+                newLeft = i;
+                flag = false;
+            }
+
+            if (arr[i + 1] == ' ' && !flag) { // filter tail blanks
+                newRight = i;
+                break;
+            }
+        }
+
+        String numStr = new String(arr, newLeft, newRight - newLeft + 1);
+        return Integer.parseInt(numStr);
+    }
+
+    private static boolean checkFormat(char[] arr, int index) {
+        if (index == 0 || index == arr.length - 1) // dont check first and last items
+            return true;
+
+        return !(isNum(arr[index + 1]) && isNum(arr[index - 1]));  // return false if this item in two numbers
+    }
+
+    private static boolean isNum(char c) {
+        return (c >= '0' && c <= '9');
+    }
 }
