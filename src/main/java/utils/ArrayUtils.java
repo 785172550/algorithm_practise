@@ -28,7 +28,7 @@ public class ArrayUtils {
         return true;
     }
 
-    public static void printArray(int[] arr) {
+    public static void printArray(Integer[] arr) {
         System.out.print("[");
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i]);
@@ -81,8 +81,9 @@ public class ArrayUtils {
         sortMethod.invoke(null, params);
         long end = System.nanoTime();
         long duration = end - start;
+        long duration2 = end / (1000 * 1000) - start / (1000 * 1000);
 
-        System.out.println("method name: " + methodName + " time: " + duration / 1000 + " microsecond 微秒");
+        System.out.println("method name: " + methodName + " time: " + duration / 1000 + " microsecond 微秒, " + duration2 + " millsecond 毫秒");
     }
 
 }

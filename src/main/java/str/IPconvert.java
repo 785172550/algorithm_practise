@@ -56,7 +56,11 @@ public class IPconvert {
 
 
     /*
-     * 172.168.5.1 -> 2896692481
+     * question:
+      * covert  172.168.5.1 -> 2896692481
+     *  only one iteraion
+     *  check invalid input
+     *
      * 4294967294
      *
      * 2896692480
