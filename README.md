@@ -3,7 +3,13 @@ algorithm_practise
 
 ### 基础数据结构
 ```sbtshell
-链表，栈，队列，哈希表，图，Trie 并查集
+链表：写大于读
+栈： 深度优先DFS
+队列: 广度优先BFS
+哈希表: 
+图： 稀疏图(sparse Graph, 邻接表adjiacency lists), 稠密图(dense graph, 邻接矩阵adjiacency matrix)
+Trie： 字典
+并查集 unionSet：适用于判断是否连接的问题 QuickFind vs quick Union， 
 
 ```
 
@@ -13,9 +19,14 @@ algorithm_practise
 在交换并重建堆的过程中，需交换n-1次，而重建堆的过程中，根据完全二叉树的性质，
 [log2(n-1),log2(n-2)...1]逐步递减，近似为nlogn
 
-二叉树
+---
 
+二叉搜索树： left < current < right
+不一定是完全二叉树，所以无法用数组装载
+增删改查操作
+前中后序遍历
 
+---
 
 各种排序算法
 ```
