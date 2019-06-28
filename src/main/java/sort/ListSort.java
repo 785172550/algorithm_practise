@@ -152,42 +152,39 @@ public class ListSort {
         Qsort(arr, 0, len - 1);
     }
 
-    private static void Qsort(Comparable[] arr, int left, int right) {
+	private static void Qsort(Integer[] arr, int left, int right) {
 
-//        if (left >= right) {
-//            return;
-//        }
-        if (right - left <= 15) {
-            insertSort2(arr, left, right);
-            return;
-        }
+		if (left >= right) {
+			return;
+		}
+		// if (right - left <= 15) {
+		// insertSort2(arr, left, right);
+		// return;
+		// }
 
-        // 随机选取一个 轴点
-        ArrayUtils.swap(arr, left, (int) (Math.random() * (right - left + 1) + left));
-        Comparable t = arr[left];
+		// 随机选取一个 轴点
+		ArrayUtils.swap(arr, left, (int) (Math.random() * (right - left + 1) + left));
+		Integer t = arr[left];
 
-        // partitions
-        int lt = left; // [left...lt] < t
-        int gt = right; // [gt...right] > t
-        int eq = left; // [lt...eq) == t
-        while (eq < gt) {
-            if (arr[eq].compareTo(t) < 0) {
-                ArrayUtils.swap(arr, lt, eq);
-                lt++;
-                eq++;
-            }
-            if (arr[eq].compareTo(t) > 0) {
-                ArrayUtils.swap(arr, gt, eq);
-                gt--;
-            }
-            if (arr[eq].compareTo(t) == 0) {
-                eq++;
-            }
-        }
+		// partitions
+		int lt = left; // [left+1 ...lt] < t
+		int gt = right + 1; // [gt...right] > t
+		int eq = left + 1; // [lt + 1...eq) == t
+		while (eq < gt) {
+			if (arr[eq] < t) {
+				lt++;
+				ArrayUtils.swap(arr, lt, eq);
+				eq++;
+			} else if (arr[eq] > t) {
+				gt--;
+				ArrayUtils.swap(arr, gt, eq);
+			} else { // (arr[eq] == t)
+				eq++;
+			}
+		}
 
-        ArrayUtils.swap(arr, lt, left);
-        Qsort(arr, left, lt - 1); // swap(arr, lt, left)
-        Qsort(arr, gt, right);
-
-    }
+		ArrayUtils.swap(arr, lt, left);
+		Qsort(arr, left, lt - 1); // swap(arr, lt, left)
+		Qsort(arr, gt, right);
+	}
 }
