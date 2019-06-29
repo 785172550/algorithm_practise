@@ -67,7 +67,31 @@ public class ArrayUtils {
         return arr;
     }
 
+    public static int[] generateRandomArray2(int n, int min, int max) {
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = (int) (Math.random() * (max - min + 1) + min);
+        }
+        return arr;
+    }
+
     // 近乎有序的数组
+    public static int[] generateNearlyOrderArray2(int n, int swapTimes) {
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = i;
+        }
+
+        // random swap
+        for (int i = 0; i < swapTimes; i++) {
+            int rand1 = (int) (Math.random() * n);
+            int rand2 = (int) (Math.random() * n);
+            swap(arr, rand1, rand2);
+        }
+
+        return arr;
+    }
+
     public static Integer[] generateNearlyOrderArray(int n, int swapTimes) {
         Integer[] arr = new Integer[n];
         for (int i = 0; i < n; i++) {
@@ -87,6 +111,20 @@ public class ArrayUtils {
     public static void testTime(String methodName, Class<?> clz, Comparable[] arr)
             throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         Method sortMethod = clz.getMethod(methodName, new Class[]{Comparable[].class});
+        Object[] params = new Object[]{arr};
+
+        long start = System.nanoTime();
+        sortMethod.invoke(null, params);
+        long end = System.nanoTime();
+        long duration = end - start;
+        long duration2 = end / (1000 * 1000) - start / (1000 * 1000);
+
+        System.out.println("method name: " + methodName + " time: " + duration / 1000 + " microsecond 微秒, " + duration2 + " millsecond 毫秒");
+    }
+
+    public static void testTime(String methodName, Class<?> clz, int [] arr)
+            throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        Method sortMethod = clz.getMethod(methodName, new Class[]{int[].class});
         Object[] params = new Object[]{arr};
 
         long start = System.nanoTime();

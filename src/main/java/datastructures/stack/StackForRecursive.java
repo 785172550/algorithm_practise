@@ -31,7 +31,7 @@ public class StackForRecursive {
         String command;
         TreeNode node;
 
-        public Command(String command, TreeNode node) {
+        Command(String command, TreeNode node) {
             this.command = command;
             this.node = node;
         }
@@ -45,17 +45,17 @@ public class StackForRecursive {
 
     }
 
-    public TreeNode genTree() {
+    private TreeNode genTree() {
         TreeNode node6 = new TreeNode(6, null, null);
         TreeNode node5 = new TreeNode(5, null, null);
         TreeNode node4 = new TreeNode(4, null, null);
         TreeNode node3 = new TreeNode(3, node4, null);
         TreeNode node2 = new TreeNode(2, node5, node6);
-        TreeNode node1 = new TreeNode(1, node2, node3);
-        return node1;
+
+        return new TreeNode(1, node2, node3);
     }
 
-    public void preOrderRecursive(TreeNode crr) {
+    private void preOrderRecursive(TreeNode crr) {
         if (crr == null)
             return;
 
@@ -64,7 +64,7 @@ public class StackForRecursive {
         preOrder(crr.right);
     }
 
-    public List<Integer> preOrder(TreeNode root) {
+    private List<Integer> preOrder(TreeNode root) {
         if (root == null) {
             return new ArrayList<>();
         }
