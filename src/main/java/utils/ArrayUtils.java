@@ -2,7 +2,10 @@ package utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class ArrayUtils {
 
@@ -12,6 +15,15 @@ public class ArrayUtils {
             throw new IllegalArgumentException("out of bounds");
         }
         T temp = arr[first];
+        arr[first] = arr[second];
+        arr[second] = temp;
+    }
+
+    public static void swap(int[] arr, int first, int second) {
+        if (first > arr.length || second > arr.length) {
+            throw new IllegalArgumentException("out of bounds");
+        }
+        int temp = arr[first];
         arr[first] = arr[second];
         arr[second] = temp;
     }
