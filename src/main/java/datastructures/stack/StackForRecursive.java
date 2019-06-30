@@ -60,8 +60,8 @@ public class StackForRecursive {
             return;
 
         System.out.println(crr.val);
-        preOrder(crr.left);
-        preOrder(crr.right);
+        preOrderRecursive(crr.left);
+        preOrderRecursive(crr.right);
     }
 
     private List<Integer> preOrder(TreeNode root) {
