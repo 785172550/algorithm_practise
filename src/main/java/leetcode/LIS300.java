@@ -17,6 +17,7 @@ public class LIS300 {
     getAllSolution(list, 4);
   }
 
+    // O(n2), LIS 问题可以有O(nlogn)的解法，但不是动态规划
   public static int lengthOfLIS(int[] nums) {
     int[] memo = new int[nums.length];
     Arrays.fill(memo, 1);
