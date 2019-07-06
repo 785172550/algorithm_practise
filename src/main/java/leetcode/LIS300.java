@@ -25,7 +25,7 @@ public class LIS300 {
     for (int i = 1; i < nums.length; i++) {
       for (int j = i - 1; j >= 0; j--) {
         if (nums[j] < nums[i]) {
-          memo[i] = Math.max(memo[j] + 1, memo[i]);
+          memo[i] = Math.max(memo[j] + 1, memo[i]); // [0 ... i-1] 与 num[i] 比较， 如果num[i]大， memo[i]至少为meno[j]+1
           continue;
         }
       }
