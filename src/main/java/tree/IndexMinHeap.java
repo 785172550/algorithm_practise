@@ -62,6 +62,7 @@ public class IndexMinHeap {
 
     if (reverse[i] == -1) return; // 关键步骤， 确定 data[i]在堆中，
 
+    data[i] = item;
     int index = reverse[i];
     shiftUp(index);
     shiftDown(index);
