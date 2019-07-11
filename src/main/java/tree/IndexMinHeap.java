@@ -23,6 +23,11 @@ public class IndexMinHeap {
   int count;
   int capacity;
 
+  /* data: [5, 5, 5, 2, 1, 9, 0, 1, 8, 6]
+   * index: [6, 7, 4, 3, 0, 5, 2, 1, 8, 9]
+   * reverse: [4, 7, 6, 3, 2, 5, 0, 1, 8, 9]
+   *
+   */
   public IndexMinHeap(int capacity) {
     this.capacity = capacity;
     data = new int[capacity];
