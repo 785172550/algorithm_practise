@@ -1,4 +1,4 @@
-package com.wh.test.tree;
+package tree.heap;
 
 /** @author hw83770 */
 public class MinHeap {

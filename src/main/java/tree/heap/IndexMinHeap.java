@@ -1,4 +1,4 @@
-package com.wh.test.tree;
+package tree.heap;
 
 import java.util.Arrays;
 
@@ -86,7 +86,7 @@ public class IndexMinHeap {
       if (data[index[child]] > data[index[child + 1]]) child = child + 1;
       if (data[index[k]] < data[index[child]]) break; // 最小的 child > val满足堆的定义
       swapIndex(k, child);
-      
+
       // update reverse becasue of index array changed
       reverse[index[k]] = k;
       reverse[index[child]] = child;

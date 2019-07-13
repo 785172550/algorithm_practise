@@ -1,4 +1,4 @@
-package datastructures.unionset;
+package unionset;
 
 public class QuickUnion {
     int size = 0;
