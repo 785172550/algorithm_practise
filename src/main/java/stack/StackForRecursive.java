@@ -1,21 +1,21 @@
-package com.wh.test.stack;
+package stack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 /**
- * 
+ *
  * @ClassName: StackForRecursive
  * @author: hw83770
- * 
+ *
  * 用栈 模拟所有递归 用 BST 前序, 中序， 后序 遍历做例子
- * 
+ *
  * 没有 command 包装的 中序， 后序 代码结构很不一样
  */
 
 public class StackForRecursive {
-	
+
 	class TreeNode {
 		int val;
 		TreeNode left;
@@ -85,7 +85,7 @@ public class StackForRecursive {
 		}
 		return res;
 	}
-	
+
 	public List<Integer> inOrder(TreeNode root) {
 		if (root == null) {
 			return new ArrayList<>();
@@ -108,7 +108,7 @@ public class StackForRecursive {
 		}
 		return res;
 	}
-	
+
 	public List<Integer> postOrder(TreeNode root) {
 		if (root == null) {
 			return new ArrayList<>();
