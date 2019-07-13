@@ -1,15 +1,14 @@
-package com.wh.test.leetcode;
+package leetcode;
 
 import java.util.LinkedList;
 import java.util.Queue;
-
-import com.wh.test.tree.TreeNode;
+import tree.TreeNode;
 
 /**
  * Definition for a binary tree node. public class TreeNode { int val; TreeNode left; TreeNode
  * right; TreeNode(int x) { val = x; } }
  */
-public class SymmeticTree {
+public class SymmeticTree101 {
   public boolean isSymmetric(TreeNode root) {
     Queue<TreeNode> queue = new LinkedList<TreeNode>();
     if (root == null) return true;

@@ -1,7 +1,10 @@
 package tree.heap;
 
-/** @author hw83770 */
+/**
+ * @author hw83770
+ */
 public class MinHeap {
+
   int[] data;
   int count;
   int capacity;
@@ -48,11 +51,17 @@ public class MinHeap {
     int half = count / 2;
     //    int half = size >>> 1;     // loop while a non-leaf
     while (k < half) {
-      int child = (k << 1) + 1; // assume left is the least
+      int child = (k << 1)
+          + 1; // assume left is the least
       int item = data[child];
       int right = child + 1;
-      if (right < count && data[right] < data[child]) item = data[child = right];
-      if (item >= data[k]) break; // 最小的 child > val满足堆的定义
+      if (right < count
+          && data[right] < data[child]) {
+        item = data[child = right];
+      }
+      if (item >= data[k]) {
+        break; // 最小的 child > val满足堆的定义
+      }
       swap(k, child);
       k = child;
     }
@@ -66,7 +75,9 @@ public class MinHeap {
     int parent = (k - 1) / 2;
     //    && data[parent] > val
     while (k > 0) {
-      if (data[parent] < val) break;
+      if (data[parent] < val) {
+        break;
+      }
       data[k] = data[parent];
       k = parent;
       parent = (k - 1) / 2;
@@ -79,11 +90,17 @@ public class MinHeap {
     int val = data[k];
     //    int half = size >>> 1;     // loop while a non-leaf
     while (k < half) {
-      int child = (k << 1) + 1; // assume left is the least
+      int child = (k << 1)
+          + 1; // assume left is the least
       int item = data[child];
       int right = child + 1;
-      if (right < count && data[right] < data[child]) item = data[child = right];
-      if (item >= val) break; // 最小的 child > val满足堆的定义
+      if (right < count
+          && data[right] < data[child]) {
+        item = data[child = right];
+      }
+      if (item >= val) {
+        break; // 最小的 child > val满足堆的定义
+      }
       data[k] = item; // 不满足堆的时候， 把最小的child值 拿给 parent
       k = child; // 迭代child
     }
@@ -107,11 +124,13 @@ public class MinHeap {
     //    for (int i = 0; i < N; i++) minHeap.insert(hh[i]);
     long start = System.currentTimeMillis();
 
-    for (int i = 0; i < N; i++) minHeap.insert((int) (Math.random() * M));
+    for (int i = 0; i < N; i++) {
+      minHeap.insert((int) (Math.random() * M));
+    }
     int[] arr = new int[N];
     //    minHeap.data = new int[] {0, 1, 8, 7, 7, 9, 9, 9, 8, 8};
     //    minHeap.count = 10;
-    
+
     // 将minheap中的数据逐渐使用extractMin取出来
     // 取出来的顺序应该是按照从小到大的顺序取出来的
     for (int i = 0; i < N; i++) {
@@ -121,7 +140,8 @@ public class MinHeap {
     //    System.out.println();
 
     System.out.println();
-    System.out.println(System.currentTimeMillis() - start);
+    System.out.println(
+        System.currentTimeMillis() - start);
     // 确保arr数组是从小到大排列的
     //    for (int i = 1; i < N; i++) assert arr[i - 1] <= arr[i];
   }

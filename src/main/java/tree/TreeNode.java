@@ -1,4 +1,4 @@
-package com.wh.test.tree;
+package tree;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,9 +8,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class TreeNode {
-	int val;
-	TreeNode left;
-	TreeNode right;
+
+  public int val;
+  public TreeNode left;
+  public TreeNode right;
 
 //	public TreeNode(int val, TreeNode left, TreeNode right) {
 //		super();
