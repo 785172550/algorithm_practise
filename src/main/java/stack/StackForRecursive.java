@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- *
  * @ClassName: StackForRecursive
  * @author: hw83770
  *
@@ -16,121 +15,126 @@ import java.util.Stack;
 
 public class StackForRecursive {
 
-	class TreeNode {
-		int val;
-		TreeNode left;
-		TreeNode right;
-		public TreeNode(int val, TreeNode left, TreeNode right) {
-			this.val = val;
-			this.left = left;
-			this.right = right;
-		}
-	}
+  class TreeNode {
 
-	class Command {
-		String command;
-		TreeNode node;
-		public Command(String command, TreeNode node) {
-			this.command = command;
-			this.node = node;
-		}
-	}
+    int val;
+    TreeNode left;
+    TreeNode right;
 
-	public static void main(String[] args) {
-		StackForRecursive stackForRecursive = new StackForRecursive();
-		TreeNode node1 = stackForRecursive.genTree();
-		stackForRecursive.preOrder(node1);
-		stackForRecursive.preOrderRecursive(node1);
+    public TreeNode(int val, TreeNode left, TreeNode right) {
+      this.val = val;
+      this.left = left;
+      this.right = right;
+    }
+  }
 
-	}
+  class Command {
 
-	public TreeNode genTree() {
-		TreeNode node6 = new TreeNode(6, null, null);
-		TreeNode node5 = new TreeNode(5, null, null);
-		TreeNode node4 = new TreeNode(4, null, null);
-		TreeNode node3 = new TreeNode(3, node4, null);
-		TreeNode node2 = new TreeNode(2, node5, node6);
-		TreeNode node1 = new TreeNode(1, node2, node3);
-		return node1;
-	}
+    String command;
+    TreeNode node;
 
-	public void preOrderRecursive(TreeNode crr) {
-		if (crr == null)
-			return;
+    public Command(String command, TreeNode node) {
+      this.command = command;
+      this.node = node;
+    }
+  }
 
-		System.out.println(crr.val);
-		preOrder(crr.left);
-		preOrder(crr.right);
-	}
+  public static void main(String[] args) {
+    StackForRecursive stackForRecursive = new StackForRecursive();
+    TreeNode node1 = stackForRecursive.genTree();
+    stackForRecursive.preOrder(node1);
+    stackForRecursive.preOrderRecursive(node1);
 
-	public List<Integer> preOrder(TreeNode root) {
-		if (root == null) {
-			return new ArrayList<>();
-		}
+  }
 
-		List<Integer> res = new ArrayList<Integer>();
-		Stack<Command> stack = new Stack<>();
-		stack.push(new Command("visit", root));
-		while (!stack.isEmpty()) {
-			Command command = stack.pop();
-			if (command.command == "visit" && command.node != null) {
-				stack.push(new Command("visit", command.node.right));
-				stack.push(new Command("visit", command.node.left));
-				stack.push(new Command("print", command.node));
-			}
-			if (command.command == "print" && command.node != null) {
-				System.out.println(command.node.val);
-				res.add(command.node.val);
-			}
-		}
-		return res;
-	}
+  public TreeNode genTree() {
+    TreeNode node6 = new TreeNode(6, null, null);
+    TreeNode node5 = new TreeNode(5, null, null);
+    TreeNode node4 = new TreeNode(4, null, null);
+    TreeNode node3 = new TreeNode(3, node4, null);
+    TreeNode node2 = new TreeNode(2, node5, node6);
+    TreeNode node1 = new TreeNode(1, node2, node3);
+    return node1;
+  }
 
-	public List<Integer> inOrder(TreeNode root) {
-		if (root == null) {
-			return new ArrayList<>();
-		}
+  public void preOrderRecursive(TreeNode crr) {
+    if (crr == null) {
+      return;
+    }
 
-		List<Integer> res = new ArrayList<Integer>();
-		Stack<Command> stack = new Stack<>();
-		stack.push(new Command("visit", root));
-		while (!stack.isEmpty()) {
-			Command command = stack.pop();
-			if (command.command == "visit" && command.node != null) {
-				stack.push(new Command("visit", command.node.right));
-				stack.push(new Command("print", command.node));
-				stack.push(new Command("visit", command.node.left));
-			}
-			if (command.command == "print" && command.node != null) {
-				System.out.println(command.node.val);
-				res.add(command.node.val);
-			}
-		}
-		return res;
-	}
+    System.out.println(crr.val);
+    preOrder(crr.left);
+    preOrder(crr.right);
+  }
 
-	public List<Integer> postOrder(TreeNode root) {
-		if (root == null) {
-			return new ArrayList<>();
-		}
+  public List<Integer> preOrder(TreeNode root) {
+    if (root == null) {
+      return new ArrayList<>();
+    }
 
-		List<Integer> res = new ArrayList<Integer>();
-		Stack<Command> stack = new Stack<>();
-		stack.push(new Command("visit", root));
-		while (!stack.isEmpty()) {
-			Command command = stack.pop();
-			if (command.command == "visit" && command.node != null) {
-				stack.push(new Command("print", command.node));
-				stack.push(new Command("visit", command.node.right));
-				stack.push(new Command("visit", command.node.left));
-			}
-			if (command.command == "print" && command.node != null) {
-				System.out.println(command.node.val);
-				res.add(command.node.val);
-			}
-		}
-		return res;
-	}
+    List<Integer> res = new ArrayList<Integer>();
+    Stack<Command> stack = new Stack<>();
+    stack.push(new Command("visit", root));
+    while (!stack.isEmpty()) {
+      Command command = stack.pop();
+      if (command.command == "visit" && command.node != null) {
+        stack.push(new Command("visit", command.node.right));
+        stack.push(new Command("visit", command.node.left));
+        stack.push(new Command("print", command.node));
+      }
+      if (command.command == "print" && command.node != null) {
+        System.out.println(command.node.val);
+        res.add(command.node.val);
+      }
+    }
+    return res;
+  }
+
+  public List<Integer> inOrder(TreeNode root) {
+    if (root == null) {
+      return new ArrayList<>();
+    }
+
+    List<Integer> res = new ArrayList<Integer>();
+    Stack<Command> stack = new Stack<>();
+    stack.push(new Command("visit", root));
+    while (!stack.isEmpty()) {
+      Command command = stack.pop();
+      if (command.command == "visit" && command.node != null) {
+        stack.push(new Command("visit", command.node.right));
+        stack.push(new Command("print", command.node));
+        stack.push(new Command("visit", command.node.left));
+      }
+      if (command.command == "print" && command.node != null) {
+        System.out.println(command.node.val);
+        res.add(command.node.val);
+      }
+    }
+    return res;
+  }
+
+  public List<Integer> postOrder(TreeNode root) {
+    if (root == null) {
+      return new ArrayList<>();
+    }
+
+    List<Integer> res = new ArrayList<Integer>();
+    Stack<Command> stack = new Stack<>();
+    stack.push(new Command("visit", root));
+    while (!stack.isEmpty()) {
+      Command command = stack.pop();
+      if (command.command == "visit" && command.node != null) {
+        stack.push(new Command("print", command.node));
+        stack.push(new Command("visit", command.node.right));
+        stack.push(new Command("visit", command.node.left));
+      }
+      if (command.command == "print" && command.node != null) {
+        System.out.println(command.node.val);
+        res.add(command.node.val);
+      }
+    }
+    return res;
+  }
 
 }
 

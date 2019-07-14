@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SequenceWriter;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,12 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestWhatever {
+
     public static void main(String[] args) throws IOException {
 //        testYml();
         TestWhatever t = new TestWhatever();
 //        t.combine(5, 4);
-        t.removeDuplicates(new int[] {1,1,1,2,3,3,4});
+        t.removeDuplicates(new int[]{1, 1, 1, 2, 3, 3, 4});
     }
+
 
     public int removeDuplicates(int[] nums) {
         if (nums.length == 0) return 0;
@@ -73,4 +74,6 @@ public class TestWhatever {
         }
 
     }
+
+
 }

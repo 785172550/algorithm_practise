@@ -3,7 +3,7 @@ package tree;
 import java.util.Stack;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+//@Slf4j
 public class TreeDFS {
   public static void main(String[] args) {
     TreeDFS treeDFS = new TreeDFS();
@@ -15,7 +15,7 @@ public class TreeDFS {
   @SuppressWarnings("unused")
   private void preOrderRecursive(TreeNode crr) {
     if (crr == null) return;
-    log.info(" > " + crr.val);
+//    log.info(" > " + crr.val);
     preOrderRecursive(crr.left);
     preOrderRecursive(crr.right);
   }
