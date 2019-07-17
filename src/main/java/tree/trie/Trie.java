@@ -23,8 +23,8 @@ public class Trie {
   private int size;
 
   public Trie() {
-    root = new Node();
-    size = 0;
+    this.root = new Node();
+    this.size = 0;
   }
 
   public void add(String word) {
