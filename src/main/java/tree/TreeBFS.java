@@ -1,18 +1,28 @@
 package tree;
 
 import java.util.LinkedList;
+import utils.ArrayUtils;
 
 public class TreeBFS {
 
-  public static void main(String[] args) {}
+  public static void main(String[] args) {
 
-  private void levelOrder(TreeNode crr) {
+    TreeNode root = genTree();
+    int d = depth(root, 0);
+    int dd = depthNR(root);
+    System.out.println("depth " + d + ":" + dd);
+
+    leftView(root, d);
+  }
+
+  private static void levelOrder(TreeNode crr) {
     if (crr == null) {
       return;
     }
-    LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
+    LinkedList<TreeNode> queue = new LinkedList<>();
     TreeNode current = null;
     queue.offer(crr); // 将根节点入队
+
     while (!queue.isEmpty()) {
       current = queue.poll(); // 出队队头元素并访问
       System.out.print(current.val + "-->");
@@ -27,13 +37,59 @@ public class TreeBFS {
     }
   }
 
+  private static int depth(TreeNode crr, int level) {
+    if (crr == null)
+      return level;
+
+    return Math.max(depth(crr.left, level + 1), depth(crr.right, level + 1));
+  }
+
+  private static int depthNR(TreeNode crr) {
+    if (crr == null)
+      return 0;
+
+    LinkedList<TreeNode> queue = new LinkedList<>();
+    queue.offer(crr);
+    int depth = 0;
+    while (!queue.isEmpty()) {
+      int width = queue.size();
+      depth++;
+      for (int i = 0; i < width; i++) {
+        crr = queue.poll();
+        if (crr.left != null)
+          queue.offer(crr.left);
+        if (crr.right != null)
+          queue.offer(crr.right);
+      }
+    }
+    return depth;
+
+  }
+
+  private static void leftView(TreeNode crr, int depth) {
+    int[] res = new int[depth];
+
+    findLeft(crr, 0, res);
+    ArrayUtils.printArray(res);
+  }
+
+  private static void findLeft(TreeNode crr, int index, int[] res) {
+    if (crr == null)
+      return;
+    if (res[index] == 0)
+      res[index] = crr.val;
+
+    findLeft(crr.left, index + 1, res);
+    findLeft(crr.right, index + 1, res);
+  }
+
   // 1
   // / \
   // 2 3
   // /\ /
   // 5 6 4
 
-  private TreeNode genTree() {
+  private static TreeNode genTree() {
     TreeNode node6 = new TreeNode(6, null, null);
     TreeNode node5 = new TreeNode(5, null, null);
     TreeNode node4 = new TreeNode(4, null, null);

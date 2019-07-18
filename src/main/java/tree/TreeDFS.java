@@ -1,10 +1,10 @@
 package tree;
 
 import java.util.Stack;
-import lombok.extern.slf4j.Slf4j;
 
 //@Slf4j
 public class TreeDFS {
+
   public static void main(String[] args) {
     TreeDFS treeDFS = new TreeDFS();
     TreeNode root = treeDFS.genTree();
@@ -12,10 +12,12 @@ public class TreeDFS {
     treeDFS.preOrderRecursive(root);
   }
 
-  @SuppressWarnings("unused")
+
   private void preOrderRecursive(TreeNode crr) {
-    if (crr == null) return;
+    if (crr == null)
+      return;
 //    log.info(" > " + crr.val);
+    System.out.println(crr.val);
     preOrderRecursive(crr.left);
     preOrderRecursive(crr.right);
   }
@@ -25,25 +27,11 @@ public class TreeDFS {
     stack.push(crr);
     while (!stack.isEmpty()) {
       crr = stack.pop();
-      if (crr == null) continue;
+      if (crr == null)
+        continue;
       System.out.println(crr.val);
       stack.push(crr.right);
       stack.push(crr.left);
-    }
-  }
-  public void preOrderIter(TreeNode crr) {
-    stack.push(crr);
-    while (!stack.isEmpty()) {
-
-      crr = (TreeNode) stack.pop();
-      System.out.println(crr.val);
-
-      if (crr.right != null) {
-        stack.push(crr.right);
-      }
-      if (crr.left != null) {
-        stack.push(crr.left);
-      }
     }
   }
 
