@@ -31,6 +31,21 @@ public class TreeDFS {
       stack.push(crr.left);
     }
   }
+  public void preOrderIter(TreeNode crr) {
+    stack.push(crr);
+    while (!stack.isEmpty()) {
+
+      crr = (TreeNode) stack.pop();
+      System.out.println(crr.val);
+
+      if (crr.right != null) {
+        stack.push(crr.right);
+      }
+      if (crr.left != null) {
+        stack.push(crr.left);
+      }
+    }
+  }
 
   // 1
   // / \
