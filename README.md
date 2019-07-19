@@ -1,7 +1,7 @@
-# algorithm_practise
-algorithm_practise
+# algorithm_reearch
+algorithm_reearch
 
-- [algorithm_practise](#algorithmpractise)
+- [algorithm_reearch](#algorithmreearch)
     - [链表](#%E9%93%BE%E8%A1%A8)
     - [数组](#%E6%95%B0%E7%BB%84)
     - [栈和队](#%E6%A0%88%E5%92%8C%E9%98%9F)
@@ -119,9 +119,23 @@ left < current < right  不一定是完全二叉树，所以无法用数组装�
 ----------------------------
 
 AVL:
-左右子树高度差 <= 1
+基于BST，并且 左右子树高度差 <= 1
+rightRotate
+  //     node                   x
+  //    /   \     右旋转       /  \
+  //   x    T2   ------->   y   node
+  //  / \                       /  \
+  // y  T1                     T1  T2
+
+leftRotate
+  //   node                     x
+  //  /   \     左旋转         /  \
+  // T1   x   --------->   node   T3
+  //     / \              /   \
+  //    T2 T3            T1   T2
 
 ----------------------------
+
 RBTree:
 1）每个结点要么是红的，要么是黑的。
 2）根结点是黑的。
