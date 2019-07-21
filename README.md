@@ -7,7 +7,7 @@ algorithm_reearch
     - [栈和队](#%E6%A0%88%E5%92%8C%E9%98%9F)
     - [堆](#%E5%A0%86)
     - [树](#%E6%A0%91)
-    - [并查集](#%E5%B9%B6%E6%9F%A5%E9%9B%86)
+    - [并查集 UnionFind](#%E5%B9%B6%E6%9F%A5%E9%9B%86-UnionFind)
     - [图](#%E5%9B%BE)
     - [基础算法](#%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95)
     - [基础算法思想](#%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3)
@@ -16,13 +16,16 @@ algorithm_reearch
 ### 链表
 leetcode: 146
 ```
+有无环
+双向链表，删除
 写大于读的情形
 LinkedHashMap与 LRU算法 基于访问时间的链表 或者 基于插入时间的链表
-
-
 ```
 
-哈希表:  leetcode: 1
+哈希表:  
+```
+leetcode: 1. two sum, 219. contains duplicate(滑动窗口), 454. 4sum
+```
 
 ### 数组
 leetcode: 
@@ -37,7 +40,11 @@ leetcode:
 
 ```
 对撞指针
-滑动窗口
+leetcode: 167 two sum, 125回文串, 344 reverse string, 345 google reverse string
+11 container with most water
+
+** 滑动窗口 219 contains duplicate, 220 contains duplicate
+
 当遇到int[]数组时利用下标index 的关系
 
 ```
@@ -126,6 +133,23 @@ rightRotate
   //   x    T2   ------->   y   node
   //  / \                       /  \
   // y  T1                     T1  T2
+```
+  private Node rightRotate(Node node) {
+
+    Node x = node.left;
+
+    // 右旋转
+    node.left = x.right;
+    x.right = node;
+
+    // 红黑操作
+    x.isRed = node.isRed;
+    node.isRed = true;
+
+    return x;
+  }
+
+```
 
 leftRotate
   //   node                     x
@@ -152,7 +176,7 @@ B+ 数据都在leaf，且leaf节点链表连接
 字典树Trie: 前缀匹配
 
 ----------------------------
-线段树
+区间树，KD树
 
 ```
 * 树形问题
@@ -172,7 +196,7 @@ BSF：
 
 ```
 
-### 并查集
+### 并查集 UnionFind
 leetcode:
 
 并查集 只判断 节点是否在相同集合===(等价于)节点是否连接，不判断连接的路径，所以需要的时间复杂度更低。
@@ -205,18 +229,39 @@ union 的时候比较树的层级
 leetcode:
 
 ```
-图的表示：
-稀疏图(sparse Graph, 邻接表adjiacency lists), 
-稠密图(dense graph, 邻接矩阵adjiacency matrix)
+图的表示：V为顶点个数，E为边书
+稀疏图(sparse Graph, 邻接表adjiacency lists) -> V，E数值接近
+稠密图(dense graph, 邻接矩阵adjiacency matrix) -> E远大于V
+
+----------------------------
 
 图的算法：
 广度优先遍历与最短路径
 深度优先遍历与联通分量
-MST最小生成树：prim 贪心算法
+
+MST最小生成树：
+prim ->  贪心算法思想, 基于MinIndexHeap, O(ElogV)
+核心思想：把图分为两个切分，找最小的横切边
+
+kruskal -> 算法贪心 基于 UnionFind O(ElogE)
+核心思想：一直寻找最小权值的边，只要不形成环(UnionFind isConnected)
+Vyssotsky: 一旦形成环，删除权值最大的边。数据结构待定。删除操作不好实现
+
+
+最短路径：
+1. 单源最短路径
+理解relaxation 
+dijkstra 无负权值的图 MinIndexHeap O(ElogV)
+
+bellman-ford 无负权环 O(EV) -> 优化 queue-based bellman-ford O(ElogV)
+
+拓扑排序 -> 有向无环图DAG(Directed Acyclic Graph) O(V+E)
+
+2. 所有对节点最短路径
+Floyed O(V^3)
+
 
 ```
-
-
 
 ### 基础算法
 leetcode:
@@ -224,7 +269,8 @@ leetcode:
 ```sbtshell
 深度优先，广度优先，二分查找，递归
 
-最小生成树 Prim算法 kruskal 算法
+最小生成树: Prim算法 kruskal算法
+
 ```
 
 ### 基础算法思想
