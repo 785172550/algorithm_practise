@@ -1,4 +1,4 @@
-package com.wh.test.leetcode;
+package leetcode;
 
 import java.util.Arrays;
 
@@ -16,10 +16,7 @@ public class HouseRobber198 {
     int res = 0;
     for (int i = index; i < nums.length; i++) {
       res =
-          Math.max(
-              res,
-              (nums[i] + tryRob(nums, i + 2, memo))); // compare res with nums[i] + tryRob(nums, i +
-      // 2, memo)
+          Math.max(res,(nums[i] + tryRob(nums, i + 2, memo))); // compare res with nums[i] + tryRob(nums, i + 2, memo)
     }
     memo[index] = res;
     return res;

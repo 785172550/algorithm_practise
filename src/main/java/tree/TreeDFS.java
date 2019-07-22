@@ -1,15 +1,40 @@
 package tree;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 //@Slf4j
 public class TreeDFS {
 
+  static ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+
   public static void main(String[] args) {
     TreeDFS treeDFS = new TreeDFS();
     TreeNode root = treeDFS.genTree();
-    treeDFS.preOrderIter(root);
-    treeDFS.preOrderRecursive(root);
+//    treeDFS.preOrderIter(root);
+//    treeDFS.preOrderRecursive(root);
+    treeDFS.findPath(root);
+    System.out.println(res);
+  }
+
+  public ArrayList<ArrayList<Integer>> findPath(TreeNode root) {
+    // List<List<Integer>> res = new ArrayList<ArrayList<Integer>>();
+    find(root, new ArrayList<>());
+    return res;
+  }
+
+  private void find(TreeNode node, ArrayList<Integer> list) {
+    if (node.right == null && node.left == null) {
+      list.add(node.val);
+      res.add(list);
+      return;
+    }
+    list.add(node.val);
+    ArrayList<Integer> list2 = (ArrayList<Integer>) list.clone();
+    if (node.left != null)
+      find(node.left, list);
+    if (node.right != null)
+      find(node.right, list2);
   }
 
 
