@@ -2,7 +2,10 @@ package tree.heap;
 
 import java.util.Arrays;
 
-public class IndexMinHeapTemplate<Item extends Comparable> {
+/**
+ * 泛型索引堆
+ */
+public class IndexMinHeapTemplate<Item extends Comparable<Item>> {
 
   Item data[];
   int index[]; // index[0] = 10 表示 data[10] 的数据应该排在 第 0 的位置
@@ -53,7 +56,7 @@ public class IndexMinHeapTemplate<Item extends Comparable> {
     shiftDown(index);
   }
 
-  public void shiftUp(int k) {
+  private void shiftUp(int k) {
     while (k > 0 && data[index[(k - 1) / 2]].compareTo(data[index[k]]) > 0) {
       swapIndex((k - 1) / 2, k);
 
@@ -64,7 +67,7 @@ public class IndexMinHeapTemplate<Item extends Comparable> {
     }
   }
 
-  public void shiftDown(int k) {
+  private void shiftDown(int k) {
     int half = count / 2;
     while (k < half) {
       int child = k * 2 + 1; // assume left is the least
@@ -81,7 +84,7 @@ public class IndexMinHeapTemplate<Item extends Comparable> {
     }
   }
 
-  public void swapIndex(int i, int j) {
+  private void swapIndex(int i, int j) {
     int t = index[i];
     index[i] = index[j];
     index[j] = t;
