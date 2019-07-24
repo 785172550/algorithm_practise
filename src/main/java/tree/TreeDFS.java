@@ -1,49 +1,71 @@
 package tree;
 
-import java.util.ArrayList;
 import java.util.Stack;
+import lombok.extern.slf4j.Slf4j;
 
-//@Slf4j
+@Slf4j
 public class TreeDFS {
+  //      1
+  //    /   \
+  //   6      3
+  //  /  \     /
+  //  5   2    4
 
-  static ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+  static TreeNode node6 = new TreeNode(2, null, null);
+  static TreeNode node5 = new TreeNode(5, null, null);
+  static TreeNode node4 = new TreeNode(4, null, null);
+  static TreeNode node3 = new TreeNode(3, node4, null);
+  static TreeNode node2 = new TreeNode(6, node5, node6);
+
+  public static TreeNode genTree() {
+    return new TreeNode(1, node2, node3);
+  }
+
+  // 非 BST 公共祖先
+  public static TreeNode getLCA(TreeNode root, TreeNode l, TreeNode r) {
+    if (root == null) return null;
+    if (root.val == l.val || root.val == r.val) return root;
+
+    TreeNode left = getLCA(root.left, l, r);
+    TreeNode right = getLCA(root.right, l, r);
+
+    if (left != null && right != null) return root;
+    else if (left != null) return left;
+    else if (right != null) return right;
+    else return null;
+  }
+
+  public static void testLCA() {
+    //      1
+    //    /   \
+    //   6      3
+    //  /  \     /
+    //  5   2    4
+    TreeNode root = TreeBFS.genTree();
+    TreeNode lca = getLCA(root, node6, node4);
+    System.out.println(lca.val);
+  }
 
   public static void main(String[] args) {
     TreeDFS treeDFS = new TreeDFS();
-    TreeNode root = treeDFS.genTree();
-//    treeDFS.preOrderIter(root);
-//    treeDFS.preOrderRecursive(root);
-    treeDFS.findPath(root);
-    System.out.println(res);
-  }
+    TreeNode root = genTree();
+    treeDFS.preOrderIter(root);
+    treeDFS.preOrderRecursive(root);
 
-  public ArrayList<ArrayList<Integer>> findPath(TreeNode root) {
-    // List<List<Integer>> res = new ArrayList<ArrayList<Integer>>();
-    find(root, new ArrayList<>());
-    return res;
+    testLCA();
   }
-
-  private void find(TreeNode node, ArrayList<Integer> list) {
-    if (node.right == null && node.left == null) {
-      list.add(node.val);
-      res.add(list);
-      return;
-    }
-    list.add(node.val);
-    ArrayList<Integer> list2 = (ArrayList<Integer>) list.clone();
-    if (node.left != null)
-      find(node.left, list);
-    if (node.right != null)
-      find(node.right, list2);
-  }
-
 
   private void preOrderRecursive(TreeNode crr) {
-    if (crr == null)
-      return;
-//    log.info(" > " + crr.val);
-    System.out.println(crr.val);
+    if (crr == null) return;
+    log.info(" > " + crr.val);
     preOrderRecursive(crr.left);
+    preOrderRecursive(crr.right);
+  }
+
+  private void inOrderR(TreeNode crr) {
+    if (crr == null) return;
+    preOrderRecursive(crr.left);
+    log.info(" > " + crr.val);
     preOrderRecursive(crr.right);
   }
 
@@ -52,27 +74,10 @@ public class TreeDFS {
     stack.push(crr);
     while (!stack.isEmpty()) {
       crr = stack.pop();
-      if (crr == null)
-        continue;
+      if (crr == null) continue;
       System.out.println(crr.val);
       stack.push(crr.right);
       stack.push(crr.left);
     }
-  }
-
-  // 1
-  // / \
-  // 2 3
-  // /\ /
-  // 5 6 4
-
-  private TreeNode genTree() {
-    TreeNode node6 = new TreeNode(6, null, null);
-    TreeNode node5 = new TreeNode(5, null, null);
-    TreeNode node4 = new TreeNode(4, null, null);
-    TreeNode node3 = new TreeNode(3, node4, null);
-    TreeNode node2 = new TreeNode(2, node5, node6);
-
-    return new TreeNode(1, node2, node3);
   }
 }
