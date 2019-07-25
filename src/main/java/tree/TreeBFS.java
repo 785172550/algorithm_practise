@@ -10,12 +10,15 @@ public class TreeBFS {
     TreeNode root = genTree();
     int d = depth(root, 0);
     int dd = depthNR(root);
-    System.out.println("depth " + d + ":" + dd);
+//    System.out.println("depth " + d + ":" + dd);
 
-    leftView(root, d);
+//    leftView(root, d);
+
+    printLevel(root, 1);
+    printLevelNR(root, 1);
   }
 
-  private static void levelOrder(TreeNode crr) {
+  private static void levelOrderNR(TreeNode crr) {
     if (crr == null) {
       return;
     }
@@ -35,6 +38,50 @@ public class TreeBFS {
         queue.offer(current.right);
       }
     }
+  }
+
+  private static void levelOrder(TreeNode crr, int depth) {
+    if (crr == null)
+      return;
+    for (int i = 0; i < depth; i++) {
+      printLevel(crr, i);
+    }
+  }
+
+  private static void printLevelNR(TreeNode crr, int level) {
+    LinkedList<TreeNode> queue = new LinkedList<>();
+    TreeNode current = null;
+    queue.offer(crr); // 将根节点入队
+    int depth = 0;
+    while (!queue.isEmpty()) {
+      int size = queue.size();
+      if (level == depth) {
+        for (int i = 0; i < size; i++) {
+          System.out.println("level:" + queue.poll().val);
+        }
+        return;
+      } else {
+        for (int i = 0; i < size; i++) {
+          TreeNode node = queue.poll();
+          if (node.left != null)
+            queue.offer(node.left);
+          if (node.right != null)
+            queue.offer(node.right);
+        }
+        depth++;
+      }
+
+    }
+  }
+
+  private static void printLevel(TreeNode crr, int level) {
+    if (level == 0) {
+      System.out.println(crr.val);
+      return;
+    }
+
+    printLevel(crr.left, level - 1);
+    printLevel(crr.right, level - 1);
   }
 
   private static int depth(TreeNode crr, int level) {
