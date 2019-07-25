@@ -13,6 +13,11 @@ public class IndexMinHeapTemplate<Item extends Comparable<Item>> {
   int count;
   int capacity;
 
+  /* data: [5, 5, 5, 2, 1, 9, 0, 1, 8, 6]
+   * index: [6, 7, 4, 3, 0, 5, 2, 1, 8, 9]
+   * reverse: [4, 7, 6, 3, 2, 5, 0, 1, 8, 9]
+   *
+   */
   public IndexMinHeapTemplate(int capacity) {
     this.capacity = capacity;
     data = (Item[]) new Comparable[capacity];
@@ -92,6 +97,43 @@ public class IndexMinHeapTemplate<Item extends Comparable<Item>> {
     reverse[t] = j;
     reverse[index[i]] = i;
   }
+  
+  // 注意:这个测试在向堆中插入元素以后, 不进行extract操作有效
+  public boolean testIndexes() {
+    int[] copyIndexes = new int[count];
+    int[] copyReverseIndexes = new int[count];
 
+    for (int i = 0; i < count; i++) {
+      copyIndexes[i] = index[i];
+      copyReverseIndexes[i] = reverse[i];
+    }
+    //    copyIndexes[0] = 0;
+    //    copyReverseIndexes[0] = 0;
+    Arrays.sort(copyIndexes);
+    Arrays.sort(copyReverseIndexes);
+
+    // 在对索引堆中的索引和反向索引进行排序后,
+    // 两个数组都应该正好是1...count这count个索引
+    boolean res = true;
+    for (int i = 1; i < count; i++)
+      if (copyIndexes[i - 1] + 1 != copyIndexes[i]
+          || copyReverseIndexes[i - 1] + 1 != copyReverseIndexes[i]) {
+        res = false;
+        break;
+      }
+    if (!res) {
+      System.out.println("Error!");
+      return false;
+    }
+    return true;
+  }
+    // 测试 IndexMaxHeap
+  public static void main(String[] args) {
+
+    int N = 10;
+    IndexMinHeap indexMaxHeap = new IndexMinHeap(N);
+    for (int i = 0; i < N; i++) indexMaxHeap.insert(i, (int) (Math.random() * N));
+    indexMaxHeap.testIndexes();
+  }
 
 }
