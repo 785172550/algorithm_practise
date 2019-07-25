@@ -75,11 +75,11 @@ public class TreeBFS {
   }
 
   private static void printLevel(TreeNode crr, int level) {
+    if (crr == null) return;
     if (level == 0) {
       System.out.println(crr.val);
       return;
     }
-
     printLevel(crr.left, level - 1);
     printLevel(crr.right, level - 1);
   }
