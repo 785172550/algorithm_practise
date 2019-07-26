@@ -1,11 +1,10 @@
 package graph;
 
 import java.io.BufferedInputStream;
-import java.util.Scanner;
-import util.FileOperation;
-import java.util.Locale;
 import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class ReadGraph {
 
@@ -13,8 +12,10 @@ public class ReadGraph {
 
   public ReadGraph(Graph graph, String filename) {
 
-    BufferedInputStream fis = (BufferedInputStream) FileOperation.getFileStream(filename);
-    if (fis == null) return;
+    BufferedInputStream fis = null;
+// (BufferedInputStream) FileOperation.getFileStream(filename);
+    if (fis == null)
+      return;
     scanner = new Scanner(new BufferedInputStream(fis), "UTF-8");
     scanner.useLocale(Locale.ENGLISH);
 
@@ -38,12 +39,12 @@ public class ReadGraph {
     } catch (InputMismatchException e) {
       String token = scanner.next();
       throw new InputMismatchException(
-          "attempts to read an 'int' value from input stream, but the next token is \""
-              + token
-              + "\"");
+        "attempts to read an 'int' value from input stream, but the next token is \""
+          + token
+          + "\"");
     } catch (NoSuchElementException e) {
       throw new NoSuchElementException(
-          "attemps to read an 'int' value from input stream, but there are no more tokens available");
+        "attemps to read an 'int' value from input stream, but there are no more tokens available");
     }
   }
 

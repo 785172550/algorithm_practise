@@ -1,8 +1,17 @@
-package leetcode;
+package dynamic;
 
 import java.util.Arrays;
 
-public class LIS300 {
+
+/*
+  LIS（最长递增子序列）、
+
+  分别
+  连续 Leetcode 674
+  不连续 Leetcode 300
+
+ */
+public class LIS {
 
   public static void main(String[] args) {
     int[] t = new int[]{10, 9, 2, 5, 3, 7, 101, 18};
@@ -10,20 +19,19 @@ public class LIS300 {
     System.out.println(lenOfLIS2(t));
   }
 
-  // O(n2), LIS 问题可以有O(nlogn)的解法，但不是动态规划
+  // O(n2),
   public static int lengthOfLIS(int[] nums) {
     int[] memo = new int[nums.length];
     Arrays.fill(memo, 1);
-    // memo[0] = 1;
 
     for (int i = 1; i < nums.length; i++) {
       for (int j = i - 1; j >= 0; j--) {
         if (nums[j] < nums[i]) {
-          memo[i] = Math.max(memo[j] + 1, memo[i]); // [0 ... i-1] 与 num[i] 比较， 如果num[i]大， memo[i]至少为meno[j]+1
+          memo[i] = Math.max(memo[j] + 1, memo[i]); // nums[0 ... i-1]与num[i]比较，如果num[i]大， memo[i]至少为meno[j]+1
         }
       }
     }
-    Arrays.sort(memo);
+    Arrays.sort(memo); // 找出memo 最大值
 
     return memo[nums.length - 1];
   }
@@ -37,9 +45,8 @@ public class LIS300 {
    0-2
    1-4
    0-5
-
-
    */
+  //  LIS 问题可以有O(nlogn)的 解法
   public static int lenOfLIS2(int[] nums) {
     int[] memo = new int[nums.length]; // tail of
     int max_len = 0;

@@ -11,7 +11,9 @@ public class BackTrackingR {
     btr.subsets(new int[]{1, 3, 2});
     Double.valueOf("11.45");
 
-    Integer a =1;
+    Integer a = 1;
+
+    System.out.println(btr.permute(new int[]{1, 2, 3}));
 
   }
 
@@ -64,11 +66,11 @@ public class BackTrackingR {
   public List<List<Integer>> permute(int[] nums) {
     List<List<Integer>> list = new ArrayList<>();
     boolean[] used = new boolean[nums.length];
-    backtrack3(list, new ArrayList<>(), used, nums, 0);
+    backtrack3(list, new ArrayList<>(), used, nums);
     return list;
   }
 
-  private void backtrack3(List<List<Integer>> list, List<Integer> tempList, boolean[] used, int[] nums, int start) {
+  private void backtrack3(List<List<Integer>> list, List<Integer> tempList, boolean[] used, int[] nums) {
     if (tempList.size() == nums.length) {
       list.add(new ArrayList<>(tempList));
       return;
@@ -79,7 +81,7 @@ public class BackTrackingR {
         continue;
       tempList.add(nums[i]);
       used[i] = true;
-      backtrack3(list, tempList, used, nums, i + 1);
+      backtrack3(list, tempList, used, nums);
       tempList.remove(tempList.size() - 1);
       used[i] = false;
     }
