@@ -2,6 +2,7 @@ package stack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 
 /**
@@ -123,12 +124,12 @@ public class StackForRecursive {
     stack.push(new Command("visit", root));
     while (!stack.isEmpty()) {
       Command command = stack.pop();
-      if (command.command == "visit" && command.node != null) {
+      if (Objects.equals(command.command, "visit") && command.node != null) {
         stack.push(new Command("print", command.node));
         stack.push(new Command("visit", command.node.right));
         stack.push(new Command("visit", command.node.left));
       }
-      if (command.command == "print" && command.node != null) {
+      if (Objects.equals(command.command, "print") && command.node != null) {
         System.out.println(command.node.val);
         res.add(command.node.val);
       }
