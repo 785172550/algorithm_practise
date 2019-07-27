@@ -89,6 +89,7 @@ public class FloodFill {
           count += 1;       // 有一个独立的岛屿
           grid2[i][j] = '0'; // visited
           dfs(i, j);
+          //dfsNR(newI,newJ);
         }
       }
     }
@@ -104,7 +105,6 @@ public class FloodFill {
       if (grid2[newI][newJ] == '1') {
         grid2[newI][newJ] = '0'; // visited
         dfs(newI, newJ);
-//        dfsNR(newI,newJ);
       }
     }
   }
