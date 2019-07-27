@@ -17,7 +17,10 @@ public class HouseRobber198 {
     for (int i = index; i < nums.length; i++) {
       res =
           Math.max(res,(nums[i] + tryRob(nums, i + 2, memo))); // compare res with nums[i] + tryRob(nums, i + 2, memo)
+         // res是不抢这家的情况, 意味可以抢下一家，下个循环
+         // (nums[i] + tryRob(nums, i + 2, memo)) 是抢这一家的情况
     }
+
     memo[index] = res;
     return res;
   }
@@ -50,6 +53,6 @@ public class HouseRobber198 {
   public int rob2(int[] nums) {
     int[] memo = new int[nums.length];
     Arrays.fill(memo, -1);
-    return tryRob(nums, nums.length - 1, memo);
+    return tryRob2(nums, nums.length - 1, memo);
   }
 }

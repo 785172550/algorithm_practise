@@ -23,13 +23,12 @@ def dfsNR(root):
       
 可以看出 核心思路就是将 递归调用dfs函数的地方, 替换成压栈
 
----
+-----------------------------------
 
 树的公共祖先寻找:
 首先如果p q 在树中，最坏情况LCA 是root
 如果LCA(root.left, p, q) 有值，说明在左边，这就是一个递归结构！
 递归终止条件 root.val == p.val || q.val
-
 
 def LCA(root, p, q):
  if(!root): return null
@@ -50,6 +49,7 @@ def LCA(root, p, q):
  if(!right): return right
  eles return null 
 
+-----------------------------------
  
 leveL order:
 不管是树还是图，广度优先总是与 最短路径有关(最短子树) 
@@ -105,9 +105,13 @@ if s1[m] == s2[n]: LCS(m,n) = LCS(m-1,n-1) + 1
 if s1[m] != s2[n]: LCS(m,n) = max(LCS(m-1,n), LCS(m,n-1))
 * 两个参数的状态转移方程 可以放在一个二维数组中思考
 
+-----------------------------------
+
 LIS(最长递增子序列):
 LIS(n) 表示[0...n] 的LIS 长度, j: [0...n-1]
 LIS(n) = max( 1 + LIS(j): if nums[n] >= nums[j] ) 
+
+-----------------------------------
 
 01背包问题
 状态转移方程:
@@ -116,6 +120,23 @@ F(n, c)： n 是物品个数， c是背包容积， F是是的价值最大
 F(i, c) = max(F(i-1, c), v(i) + F(i-1, c-w(i)))
 
 对于第i个物品：要么不放入背包，c不变。要么放入背包加上i的价值，减去i的容量
+
+def knapsack(int[] v, int[] w, int c): 
+  // v[i] i的value, w[i]的容积， c背包容积
+  beatValue(v, w, c, v.len - 1)
+
+加入记忆
+memo[index][c]
+  
+// index 当前正要放的 index 物品  
+def beatValue(int[] v, int[] w, int c, int index):
+  if(memo[index][c] != 0) return memo[index][c] // 记忆之前的状态
+  
+  int value1 = beatValue(v, w, c, index-1)
+  int value2 = v[index] + beatValue(v, w, c-w[index], index-1)
+  memo[index][c] = max(value1, value2) // 记忆
+  return memo[index][c]；
+  
 
 ```
 
