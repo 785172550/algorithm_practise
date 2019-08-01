@@ -5,6 +5,10 @@ import graph.WeightedGraph;
 import java.util.List;
 import tree.heap.IndexMinHeapTemplate;
 
+/**
+ *  using index heap to optimize O(ElogV)
+ * @param <Weight>
+ */
 public class PrimMST<Weight extends Number & Comparable> {
 
   private WeightedGraph G;

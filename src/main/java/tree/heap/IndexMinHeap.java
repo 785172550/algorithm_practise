@@ -1,19 +1,23 @@
 package tree.heap;
 
 import java.util.Arrays;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author hw83770
- *     <p>索引堆
+ * @author hw83770 <p>索引堆
  */
 public class IndexMinHeap {
 
   // 测试 IndexMaxHeap
   public static void main(String[] args) {
 
+    ConcurrentHashMap map;
+//    map.put(null, null);
     int N = 1000000;
     IndexMinHeap indexMaxHeap = new IndexMinHeap(N);
-    for (int i = 0; i < N; i++) indexMaxHeap.insert(i, (int) (Math.random() * N));
+    for (int i = 0; i < N; i++) {
+      indexMaxHeap.insert(i, (int) (Math.random() * N));
+    }
     indexMaxHeap.testIndexes();
   }
 
@@ -60,7 +64,8 @@ public class IndexMinHeap {
   // update element at data[i]
   public void update(int i, int item) {
 
-    if (reverse[i] == -1) return; // 关键步骤， 确定 data[i]在堆中，
+    if (reverse[i] == -1)
+      return; // 关键步骤， 确定 data[i]在堆中，
 
     data[i] = item;
     int index = reverse[i];
@@ -83,8 +88,10 @@ public class IndexMinHeap {
     int half = count / 2;
     while (k < half) {
       int child = k * 2 + 1; // assume left is the least
-      if (data[index[child]] > data[index[child + 1]]) child = child + 1;
-      if (data[index[k]] < data[index[child]]) break; // 最小的 child > val满足堆的定义
+      if (data[index[child]] > data[index[child + 1]])
+        child = child + 1;
+      if (data[index[k]] < data[index[child]])
+        break; // 最小的 child > val满足堆的定义
       swapIndex(k, child);
 
       // update reverse becasue of index array changed
@@ -122,12 +129,13 @@ public class IndexMinHeap {
     // 在对索引堆中的索引和反向索引进行排序后,
     // 两个数组都应该正好是1...count这count个索引
     boolean res = true;
-    for (int i = 1; i < count; i++)
+    for (int i = 1; i < count; i++) {
       if (copyIndexes[i - 1] + 1 != copyIndexes[i]
-          || copyReverseIndexes[i - 1] + 1 != copyReverseIndexes[i]) {
+        || copyReverseIndexes[i - 1] + 1 != copyReverseIndexes[i]) {
         res = false;
         break;
       }
+    }
 
     if (!res) {
       System.out.println("Error!");
