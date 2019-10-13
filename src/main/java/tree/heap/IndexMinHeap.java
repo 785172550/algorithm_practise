@@ -11,7 +11,7 @@ public class IndexMinHeap {
   // 测试 IndexMaxHeap
   public static void main(String[] args) {
 
-    ConcurrentHashMap map;
+//    ConcurrentHashMap map;
 //    map.put(null, null);
     int N = 1000000;
     IndexMinHeap indexMaxHeap = new IndexMinHeap(N);
