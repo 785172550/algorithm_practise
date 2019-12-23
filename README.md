@@ -362,3 +362,60 @@ leetcode练习 47
 ```
 
 
+## 追加
+
+图论问题
+
+
+```aspectj
+
+1. 图的表示
+邻接表的
+邻接矩阵
+
+2.图的遍历
+与树的比较
+DFS
+BFS
+非递归
+
+3.图的建模
+floodfill与回溯
+联通性与并查集
+
+4.桥和割点，以及图的遍历树
+
+5.哈密尔顿问题
+哈密尔顿回路和 TSP
+状态压缩
+记忆化搜索
+
+6.欧拉回路和欧拉路径
+实现欧拉回路存在性的判断
+Hierholzer 
+
+7.最小生成树MST
+Prim 
+Kruskal 
+
+8.最短路径算法
+单源 
+Dijkstra 
+Bellman-Ford 
+Floyd 
+
+9.DAG
+入度和出度
+拓扑排序
+Kosaraju 
+
+10.网络流
+ 网络流模型和最大流问题
+ Ford-Fulkerson
+ Edmonds-Karp
+ 
+11.匹配问题与二分图
+最大匹配和完美匹配
+
+```
+
