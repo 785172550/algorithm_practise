@@ -5,9 +5,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
  * LDS 最长不含重复字符子字串
  *
+ * if set.notContain(n) : LDS(n) = LDS(n-1) + 1 else: LDS(n) = 1 ; set.clear()
+ *
+ * 华为
  */
 public class LDS {
 
@@ -17,7 +19,12 @@ public class LDS {
     Set<Character> set = new HashSet<>();
     set.add(str.charAt(0));
     for (int i = 1; i < str.length(); i++) {
-      if (!set.contains(str.charAt(i)) && str.charAt(i) != str.charAt(i - 1)) {
+      //str.charAt(i) == str.charAt(i-1) 作为优化提前结束判断
+      if (str.charAt(i) == str.charAt(i - 1)) {
+        continue;
+      }
+
+      if (!set.contains(str.charAt(i))) {
         meno[i] = meno[i - 1] + 1;
         set.add(str.charAt(i));
       } else {
