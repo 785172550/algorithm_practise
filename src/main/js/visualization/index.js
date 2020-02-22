@@ -1,3 +1,5 @@
+import {sortData} from "../algo/utils.js";
+
 function readFile(path) {
   var xhr = new XMLHttpRequest();
   xhr.open("get", path, false);
@@ -12,7 +14,7 @@ function readFile(path) {
 const width = 1200;
 const height = 600;
 
-const svg = d3.select('.barchart')
+const svg = d3.select('#bar')
   .attr('height', height)
   .attr('width', width);
 
@@ -56,7 +58,11 @@ const render = (data) => {
     .attr('y', d => yScale(d.country))
 };
 
-d3.csv('http://127.0.0.1:8887/population.csv').then(
+let t = [1, 255, 33, 5]
+sortData(t,false)
+console.log(t)
+
+d3.csv('http://127.0.0.1:8887/visualization/population.csv').then(
   (row) => {
     row.forEach(r => {
       // r.population = +r.population
