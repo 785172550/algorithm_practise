@@ -10,15 +10,5 @@ const svg = d3.select('#frame')
 
 
 export function sortData(data, desc) {
-  data.sort((a, b) => {
-    if (desc) {
-      if (Number(a) < Number(b))
-        return -1;
-      else return 1;
-    } else {
-      if (Number(a) < Number(b))
-        return 1;
-      else -1;
-    }
-  })
+  data.sort((a, b) => desc ? b - a : a - b)
 }

@@ -58,8 +58,8 @@ const render = (data) => {
     .attr('y', d => yScale(d.country))
 };
 
-let t = [1, 255, 33, 5]
-sortData(t,false)
+let t = [1, 255, 33, 5];
+sortData(t,false);
 console.log(t)
 
 d3.csv('http://127.0.0.1:8887/visualization/population.csv').then(
