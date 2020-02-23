@@ -69,7 +69,7 @@ var texts = g.selectAll(".MyText")
   .append("text")
   .attr("class", "MyText")
   .attr("x", (d, i) => xScale(i) + xScale.bandwidth() / 2)
-  .attr("y", d => yScale(d) - 5)
+  .attr("y", d => yScale(d) - 10)
   // .attr("dx", function (d) {
   //   return xScale.bandwidth() - xScale.bandwidth() / 2;
   // })
