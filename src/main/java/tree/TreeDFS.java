@@ -1,9 +1,8 @@
 package tree;
 
-import java.util.Stack;
-import lombok.extern.slf4j.Slf4j;
 
-//@Slf4j
+import java.util.Stack;
+
 public class TreeDFS {
   //      1
   //    /   \
@@ -49,24 +48,27 @@ public class TreeDFS {
   public static void main(String[] args) {
     TreeDFS treeDFS = new TreeDFS();
     TreeNode root = genTree();
-    treeDFS.preOrderIter(root);
-    treeDFS.preOrderRecursive(root);
+//    treeDFS.preOrderIter(root);
+//    treeDFS.preOrderRecursive(root);
 
-    testLCA();
+    treeDFS.inOrderIter(root);
+    treeDFS.inOrderR(root);
+
+//    testLCA();
   }
 
   private void preOrderRecursive(TreeNode crr) {
     if (crr == null) return;
-//    log.info(" > " + crr.val);
+    System.out.println(" > " + crr.val);
     preOrderRecursive(crr.left);
     preOrderRecursive(crr.right);
   }
 
   private void inOrderR(TreeNode crr) {
     if (crr == null) return;
-    preOrderRecursive(crr.left);
-//    log.info(" > " + crr.val);
-    preOrderRecursive(crr.right);
+    inOrderR(crr.left);
+    System.out.println(" > " + crr.val);
+    inOrderR(crr.right);
   }
 
   private void preOrderIter(TreeNode crr) {
@@ -80,4 +82,18 @@ public class TreeDFS {
       stack.push(crr.left);
     }
   }
+
+  private void inOrderIter(TreeNode crr) {
+    Stack<TreeNode> stack = new Stack<>();
+    while (!stack.isEmpty() || crr != null) {
+      while (crr != null) {
+        stack.push(crr);
+        crr = crr.left;
+      }
+      crr = stack.pop();
+      System.out.println(crr.val);
+      crr = crr.right;
+    }
+  }
+
 }

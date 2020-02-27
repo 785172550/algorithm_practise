@@ -2,15 +2,14 @@ package stack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Stack;
 
 /**
  * @ClassName: StackForRecursive
  * @author: hw83770
- *
+ * <p>
  * 用栈 模拟所有递归 用 BST 前序, 中序， 后序 遍历做例子
- *
+ * <p>
  * 没有 command 包装的 中序， 后序 代码结构很不一样
  */
 
@@ -78,12 +77,12 @@ public class StackForRecursive {
     stack.push(new Command("visit", root));
     while (!stack.isEmpty()) {
       Command command = stack.pop();
-      if (command.command == "visit" && command.node != null) {
+      if ("visit".equals(command.command) && command.node != null) {
         stack.push(new Command("visit", command.node.right));
         stack.push(new Command("visit", command.node.left));
         stack.push(new Command("print", command.node));
       }
-      if (command.command == "print" && command.node != null) {
+      if ("print".equals(command.command) && command.node != null) {
         System.out.println(command.node.val);
         res.add(command.node.val);
       }
@@ -101,12 +100,12 @@ public class StackForRecursive {
     stack.push(new Command("visit", root));
     while (!stack.isEmpty()) {
       Command command = stack.pop();
-      if (command.command == "visit" && command.node != null) {
+      if ("visit".equals(command.command) && command.node != null) {
         stack.push(new Command("visit", command.node.right));
         stack.push(new Command("print", command.node));
         stack.push(new Command("visit", command.node.left));
       }
-      if (command.command == "print" && command.node != null) {
+      if ("print".equals(command.command) && command.node != null) {
         System.out.println(command.node.val);
         res.add(command.node.val);
       }
@@ -124,12 +123,12 @@ public class StackForRecursive {
     stack.push(new Command("visit", root));
     while (!stack.isEmpty()) {
       Command command = stack.pop();
-      if (Objects.equals(command.command, "visit") && command.node != null) {
+      if ("visit".equals(command.command) && command.node != null) {
         stack.push(new Command("print", command.node));
         stack.push(new Command("visit", command.node.right));
         stack.push(new Command("visit", command.node.left));
       }
-      if (Objects.equals(command.command, "print") && command.node != null) {
+      if ("print".equals(command.command) && command.node != null) {
         System.out.println(command.node.val);
         res.add(command.node.val);
       }
