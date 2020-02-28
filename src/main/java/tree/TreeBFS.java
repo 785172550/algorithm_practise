@@ -8,14 +8,14 @@ public class TreeBFS {
   public static void main(String[] args) {
 
     TreeNode root = genTree();
-    int d = depth(root, 0);
-    int dd = depthNR(root);
+//    int d = depth(root, 0);
+//    int dd = depthNR(root);
 //    System.out.println("depth " + d + ":" + dd);
 
 //    leftView(root, d);
 
     printLevel(root, 1);
-    printLevelNR(root, 1);
+//    printLevelNR(root, 1);
   }
 
   private static void levelOrderNR(TreeNode crr) {
