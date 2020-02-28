@@ -43,12 +43,7 @@ public class ValidBSTPostOrder {
       res2 = _isValidBSTPostOrder(x, k + 1, r - 1);
     } else {
       // 没有找到
-      if (x[l] < root) {
-        res1 = _isValidBSTPostOrder(x, l, r - 1);
-      }
-      if (x[l] > root) {
-        res2 = _isValidBSTPostOrder(x, l, r - 1);
-      }
+      res2 = _isValidBSTPostOrder(x, l, r - 1);
     }
     return res1 && res2;
 
