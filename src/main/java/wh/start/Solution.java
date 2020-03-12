@@ -15,11 +15,11 @@ public class Solution {
 
     public List<List<Integer>> combine(int n, int k) {
 
-        res = new ArrayList<List<Integer>>();
+        res = new ArrayList<>();
         if (n <= 0 || k <= 0 || k > n)
             return res;
 
-        LinkedList<Integer> c = new LinkedList<Integer>();
+        LinkedList<Integer> c = new LinkedList<>();
         generateCombinations(n, k, 1, c);
 
         return res;

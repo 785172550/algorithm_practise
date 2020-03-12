@@ -17,15 +17,15 @@ public class TreeDepth {
   }
 
   // 最短的深度
-  private int test(TreeNode node, int level) {
+  private int minDepth(TreeNode node, int level) {
     if (node.left == null && node.right == null)
       return level;
     else if (node.left == null && node.right != null)
-      return test(node.right, level + 1);
+      return minDepth(node.right, level + 1);
     else if (node.right == null && node.left != null)
-      return test(node.left, level + 1);
+      return minDepth(node.left, level + 1);
     else {
-      return Math.min(test(node.left, level + 1), test(node.right, level + 1));
+      return Math.min(minDepth(node.left, level + 1), minDepth(node.right, level + 1));
     }
 
   }

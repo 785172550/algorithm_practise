@@ -40,6 +40,7 @@ public class MinHeap {
   // swap shift up and down
   private void shiftUp(int k) {
     int parent = (k - 1) / 2;
+    // k > 0 才有 parent, data[parent] <= data[k] 终止
     while (k > 0 && data[parent] > data[k]) {
       swap(k, parent);
       k = parent;
@@ -50,13 +51,12 @@ public class MinHeap {
   private void shiftDown(int k) {
     int half = count / 2;
     //    int half = size >>> 1;     // loop while a non-leaf
+    // k >=  half 就不用下沉了
     while (k < half) {
-      int child = (k << 1)
-          + 1; // assume left is the least
+      int child = (k << 1) + 1; // assume left is the least
       int item = data[child];
       int right = child + 1;
-      if (right < count
-          && data[right] < data[child]) {
+      if (right < count && data[right] < data[child]) {
         item = data[child = right];
       }
       if (item >= data[k]) {
@@ -91,11 +91,11 @@ public class MinHeap {
     //    int half = size >>> 1;     // loop while a non-leaf
     while (k < half) {
       int child = (k << 1)
-          + 1; // assume left is the least
+              + 1; // assume left is the least
       int item = data[child];
       int right = child + 1;
       if (right < count
-          && data[right] < data[child]) {
+              && data[right] < data[child]) {
         item = data[child = right];
       }
       if (item >= val) {
@@ -141,7 +141,7 @@ public class MinHeap {
 
     System.out.println();
     System.out.println(
-        System.currentTimeMillis() - start);
+            System.currentTimeMillis() - start);
     // 确保arr数组是从小到大排列的
     //    for (int i = 1; i < N; i++) assert arr[i - 1] <= arr[i];
   }
