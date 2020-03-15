@@ -1,7 +1,8 @@
 package tree;
 
-import java.util.LinkedList;
 import utils.ArrayUtils;
+
+import java.util.LinkedList;
 
 public class TreeBFS {
 

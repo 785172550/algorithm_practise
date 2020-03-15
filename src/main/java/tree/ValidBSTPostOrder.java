@@ -1,4 +1,4 @@
-package wh.start;
+package tree;
 
 public class ValidBSTPostOrder {
 

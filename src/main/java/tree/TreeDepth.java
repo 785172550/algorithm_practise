@@ -1,4 +1,4 @@
-package wh.start;
+package tree;
 
 import tree.TreeNode;
 
