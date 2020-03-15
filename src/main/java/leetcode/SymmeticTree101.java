@@ -10,7 +10,7 @@ import tree.TreeNode;
  */
 public class SymmeticTree101 {
   public boolean isSymmetric(TreeNode root) {
-    Queue<TreeNode> queue = new LinkedList<TreeNode>();
+    Queue<TreeNode> queue = new LinkedList<>();
     if (root == null) return true;
     queue.add(root.left);
     queue.add(root.right);
