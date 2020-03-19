@@ -8,7 +8,7 @@ public class Combinations77 {
   public static void main(String[] args) {
     Combinations77 c = new Combinations77();
 
-    c.combine(4, 2);
+    c.combine(3, 2);
   }
 
   List<List<Integer>> res = new ArrayList<>();
@@ -32,21 +32,21 @@ public class Combinations77 {
       return;
     }
 
-//    while (index <= n) {
-//      combine.add(index);
-//      index++;
-//      findCombine(n, k, index, combine);
-//      combine.remove(combine.size() - 1);
-//    }
-
-    // 还有k - c.size()个空位, 所以, [index...n] 中至少要有 k - c.size() 个元素
-    // i最多为 n - (k - c.size()) + 1
-    while (index <= n - (k - combine.size()) + 1) {
+    while (index <= n) {
       combine.add(index);
       index++;
       findCombine(n, k, index, combine);
       combine.remove(combine.size() - 1);
     }
+
+    // 还有k - c.size()个空位, 所以, [index...n] 中至少要有 k - c.size() 个元素
+    // i最多为 n - (k - c.size()) + 1
+//    while (index <= n - (k - combine.size()) + 1) {
+//      combine.add(index);
+//      index++;
+//      findCombine(n, k, index, combine);
+//      combine.remove(combine.size() - 1);
+//    }
 
   }
 }
