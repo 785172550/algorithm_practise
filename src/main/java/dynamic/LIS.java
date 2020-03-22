@@ -10,6 +10,11 @@ import java.util.Arrays;
   连续 Leetcode 674
   不连续 Leetcode 300
 
+   LIS(n) 表示n长度的字符串的最长递增子序列
+
+   LIS(n) = max(1, 1+ LIS(j))
+   j 取值范围 num[n] > num[j]的所有情况
+
  */
 public class LIS {
 
@@ -46,23 +51,26 @@ public class LIS {
    1-4
    0-5
    */
-  //  LIS 问题可以有O(nlogn)的 解法
+  //  LIS 问题可以有O(nlogn)的 解法： 网上搜 poker牌分堆法
+  // https://github.com/labuladong/fucking-algorithm
   public static int lenOfLIS2(int[] nums) {
     int[] memo = new int[nums.length]; // tail of
-    int max_len = 0;
+    int max_len = 0; // 牌堆数
 
     for (int i = 0; i < nums.length; i++) {
-      int k = 0;
-      int j = max_len; //二分查找的两个指针
-      while (k < j) {
-        int m = (k + j) / 2; // 中间值
+      int left = 0;
+      int right = max_len; //二分查找的两个指针 logN
+      while (left < right) {
+        int m = (left + right) / 2;
         if (memo[m] < nums[i])  // 当查询的值比 nums[i]小时，改变首指针
-          k = m + 1;
+          left = m + 1;
         else
-          j = m;
+          right = m;
       }
-      memo[k] = nums[i];
-      max_len = Math.max(k + 1, max_len);
+
+      memo[left] = nums[i];
+
+      max_len = Math.max(left + 1, max_len);
     }
     return max_len;
   }
