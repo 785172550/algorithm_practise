@@ -21,6 +21,7 @@ public class LIS {
   public static void main(String[] args) {
     int[] t = new int[]{10, 9, 2, 5, 3, 7, 101, 18};
     System.out.println(lengthOfLIS(t));
+    System.out.println(lengthOfLISR(t));
     System.out.println(lenOfLIS2(t));
   }
 
@@ -39,6 +40,32 @@ public class LIS {
     Arrays.sort(memo); // 找出memo 最大值
 
     return memo[nums.length - 1];
+  }
+
+  // 记忆化搜索
+  public static int lengthOfLISR(int[] nums) {
+    int[] memo = new int[nums.length];
+    Arrays.fill(memo, -1);
+
+    helper(nums, memo, nums.length - 1);
+
+    Arrays.sort(memo); // 找出memo 最大值
+    return memo[nums.length - 1];
+  }
+
+  private static int helper(int[] num, int[] meno, int index) {
+    if (index == 0) return 1;
+    if (meno[index] != -1) return meno[index];
+
+    int res = 1;
+    for (int i = 1; i < index; i++) {
+      if (num[index] > num[i]) {
+        res = Math.max(res, helper(num, meno, i) + 1);
+      }
+    }
+
+    meno[index] = res;
+    return res;
   }
 
   // nums = [3,5,6,2,4,5,7]

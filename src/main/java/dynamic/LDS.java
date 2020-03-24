@@ -56,20 +56,34 @@ public class LDS {
     int maxLen = 1;
 
     // 滑动窗口 [left .. right] 之中没有重复字符
-    for (int i = 1; i < chars.length; i++) {
-      right = i; //right 右滑
-      dict[chars[i]] = dict[chars[i]] + 1;
+    while (right < chars.length) {
 
-      while (dict[chars[i]] > 1) { // 如果重复 left右滑
+      dict[chars[right]] = dict[chars[right]] + 1;
+
+      while (dict[chars[right]] > 1) { // 如果重复 left右滑
         dict[chars[left]] = dict[chars[left]] - 1;
         left = left + 1;
       }
-
 //      System.out.println(left + ".." + right);
       maxLen = Math.max(maxLen, right - left + 1);
+
+      right++; //right 右滑
     }
-
-
     return maxLen;
   }
+
+  /*
+
+  while(right < s.size()) {
+    window.add(s[right]);
+    right++;
+    // 如果符合要求，移动 left 缩小窗口
+    while (window 符合要求) {
+        // 如果这个窗口的子串更短，则更新 res
+        res = minLen(res, window);
+        window.remove(s[left]);
+        left++;
+    }
+}
+   */
 }
