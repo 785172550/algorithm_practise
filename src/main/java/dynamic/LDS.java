@@ -74,6 +74,8 @@ public class LDS {
 
   /*
 
+滑动窗口框架
+
   while(right < s.size()) {
     window.add(s[right]);
     right++;

@@ -91,7 +91,7 @@ public class TreeDFS {
   }
 
 
-  // 非 BST 公共祖先
+  // 非 BST 公共祖先 Lowest Common Ancestor of Binary Tree
   public static TreeNode getLCA(TreeNode root, TreeNode l, TreeNode r) {
     if (root == null) return null;
     if (root.val == l.val || root.val == r.val) return root;

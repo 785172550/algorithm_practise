@@ -73,18 +73,15 @@ public class PathSum437 {
   private int findPath2(TreeNode node, int sum, List<Integer> path) {
     if (node == null) return 0;
     int res = 0;
+    path.add(node.val);
     if (sum == node.val) {
-      path.add(node.val);
       rlist.add(new LinkedList<>(path));
-      path.remove(node.val); // 回溯，下面还要在add
     }
 
-    path.add(node.val);
     res += findPath2(node.left, sum - node.val, path);
-
     res += findPath2(node.right, sum - node.val, path);
-    path.remove(node.val);
 
+    path.remove(node.val);
     return res;
   }
 }
