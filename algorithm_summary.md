@@ -23,6 +23,27 @@ def dfsNR(root):
       
 可以看出 核心思路就是将 递归调用dfs函数的地方, 替换成压栈
 
+
+---
+postOrder 装逼写法, 左右根 reverse -> 根右左
+so, 可以在preOrder 根左右 的基础上改下: 
+
+def postOrderNR(root):
+  res = []
+  stack.push(root)
+  
+  while(stack not null):
+    crr = stack.pop
+    if(crr == null): continue
+    // 根右左 出栈顺序
+    res.append(crr)
+    stack.push(crr.left)
+    stack.push(crr.right)
+    
+  // reverse would be 左右根 -> post order
+  return res.reverse()
+
+
 -----------------------------------
 
 树的公共祖先寻找:

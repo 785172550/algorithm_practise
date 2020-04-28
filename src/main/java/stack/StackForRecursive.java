@@ -72,7 +72,7 @@ public class StackForRecursive {
       return new ArrayList<>();
     }
 
-    List<Integer> res = new ArrayList<Integer>();
+    List<Integer> res = new ArrayList<>();
     Stack<Command> stack = new Stack<>();
     stack.push(new Command("visit", root));
     while (!stack.isEmpty()) {
@@ -118,7 +118,7 @@ public class StackForRecursive {
       return new ArrayList<>();
     }
 
-    List<Integer> res = new ArrayList<Integer>();
+    List<Integer> res = new ArrayList<>();
     Stack<Command> stack = new Stack<>();
     stack.push(new Command("visit", root));
     while (!stack.isEmpty()) {

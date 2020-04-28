@@ -77,12 +77,7 @@ public class LRU146 {
     private void moveToHead(Node node) {
       node.pre.post = node.post;
       node.post.pre = node.pre;
-
-      node.pre = head;
-      node.post = head.post;
-
-      node.post.pre = node;
-      head.post = node;
+      addToHead(node);
     }
   }
 
