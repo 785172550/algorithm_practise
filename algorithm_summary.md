@@ -12,7 +12,7 @@ def dfs(root):
 
 def dfsNR(root):
   stack.push(root, visit=false)
-  while(stack not null):
+  while(stack not empty):
     node,  visit = stack.pop
     if(visit)
       out node.val
@@ -32,7 +32,7 @@ def postOrderNR(root):
   res = []
   stack.push(root)
   
-  while(stack not null):
+  while(stack not empty):
     crr = stack.pop
     if(crr == null): continue
     // 根右左 出栈顺序

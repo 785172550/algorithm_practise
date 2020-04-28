@@ -58,34 +58,63 @@ leetcode:
 
 ```java
  // 栈和递归 
-public void preOrder(TreeNode crr) {
-    if (crr == null) // 递归首先考虑终止条件
-        return;
-    System.out.println(crr.val);
-    preOrder(crr.left);
-    preOrder(crr.right);
-}
+def preOrder(TreeNode crr):
+    if !crr: // 递归首先考虑终止条件
+        return
+    
+    println crr.val
+    preOrder(crr.left)
+    preOrder(crr.right)
+
   
   // ###########
 while (!stack.isEmpty() || crr != null) { // 循环首先考虑循环体内的迭代操作
-    if (crr != null) {
-        stack.push(crr);
-        System.out.println(crr.val);
-        crr = crr.left;
-    } else {
-        TreeNode t = (TreeNode) stack.pop();
-        crr = t.right;
-    }
+    if crr != null:
+        stack.push(crr)
+        println crr.val
+        crr = crr.left
+    else: 
+        crr = stack.pop()
+        crr = crr.right
+    
 }
 
 // 另外 一种
 while (!stack.isEmpty()) {
-    crr = stack.pop();
-    if (crr == null) continue;
-    System.out.println(crr.val);
-    stack.push(crr.right);
-    stack.push(crr.left);
+    crr = stack.pop()
+    if !crr: continue
+    print crr.val
+    stack.push(crr.right)
+    stack.push(crr.left)
 }
+
+
+def in_order(crr):
+  while(!stack || !crr):
+    if !crr:
+      stack.push(crr)
+      crr = crr.left
+    else:
+      crr = stack.pop
+      print crr.val
+      crr = crr.right
+
+##############
+
+def postOrderNR(root):
+  res = []
+  stack.push(root)
+  
+  while(stack not empty):
+    crr = stack.pop
+    if(crr == null): continue
+    // 根右左 出栈顺序
+    res.append(crr)
+    stack.push(crr.left)
+    stack.push(crr.right)
+    
+  // reverse would be 左右根 -> post order
+  return res.reverse()
 
 ```
 
