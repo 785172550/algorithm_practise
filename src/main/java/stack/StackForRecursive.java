@@ -91,11 +91,8 @@ public class StackForRecursive {
   }
 
   public List<Integer> inOrder(TreeNode root) {
-    if (root == null) {
-      return new ArrayList<>();
-    }
 
-    List<Integer> res = new ArrayList<Integer>();
+    List<Integer> res = new ArrayList<>();
     Stack<Command> stack = new Stack<>();
     stack.push(new Command("visit", root));
     while (!stack.isEmpty()) {
@@ -114,9 +111,6 @@ public class StackForRecursive {
   }
 
   public List<Integer> postOrder(TreeNode root) {
-    if (root == null) {
-      return new ArrayList<>();
-    }
 
     List<Integer> res = new ArrayList<>();
     Stack<Command> stack = new Stack<>();
